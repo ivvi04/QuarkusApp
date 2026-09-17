@@ -4,8 +4,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import ru.lakeevda.domain.entity.Order;
-import ru.lakeevda.domain.usecase.OrderUseCase;
+import ru.lakeevda.domain.boundary.model.order.OrderRequest;
+import ru.lakeevda.domain.boundary.model.order.OrderResponse;
+import ru.lakeevda.domain.boundary.usecase.OrderUseCase;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class OrderResource {
     OrderUseCase orderUseCase;
 
     @GET
-    public List<Order> getAllOrders() {
+    public List<OrderResponse> getAllOrders() {
         return orderUseCase.getAll();
     }
 
@@ -29,8 +30,8 @@ public class OrderResource {
     }
 
     @POST
-    public Response createOrder(Order order) {
-        Order createdOrder = orderUseCase.create(order);
+    public Response createOrder(OrderRequest request) {
+        OrderResponse createdOrder = orderUseCase.create(request, Boolean.TRUE);
         return Response.status(Response.Status.CREATED)
                 .entity(createdOrder).build();
     }

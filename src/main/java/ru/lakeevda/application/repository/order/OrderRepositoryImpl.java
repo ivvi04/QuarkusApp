@@ -1,9 +1,10 @@
-package ru.lakeevda.application.repository;
+package ru.lakeevda.application.repository.order;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import ru.lakeevda.domain.entity.Order;
-import ru.lakeevda.domain.repository.OrderRepository;
+import jakarta.transaction.Transactional;
+import ru.lakeevda.domain.entity.order.Order;
+import ru.lakeevda.domain.boundary.repository.OrderRepository;
 import ru.lakeevda.infrastructure.repository.OrderJpaRepository;
 
 import java.util.List;
@@ -18,21 +19,25 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> findAll() {
         return jpaRepository.findAll().stream()
-                .map(orderEntity -> Order.restore(orderEntity.id, orderEntity.name, orderEntity.status))
+                .map(OrderRepositoryMapper::fromEntity)
                 .toList();
     }
 
     @Override
     public Optional<Order> findById(Long id) {
         return jpaRepository.findByIdOptional(id)
-                .map(orderEntity -> Order.restore(orderEntity.id, orderEntity.name, orderEntity.status));
+                .map(OrderRepositoryMapper::fromEntity);
     }
 
+    @Transactional
     @Override
-    public Order save(Order order) {
-        return null;
+    public Order persist(Order order) {
+        var OrderEntity = OrderRepositoryMapper.toEntity(order);
+        jpaRepository.persist(OrderEntity);
+        return OrderRepositoryMapper.fromEntity(OrderEntity);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         jpaRepository.deleteById(id);
