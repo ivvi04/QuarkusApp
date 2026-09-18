@@ -7,14 +7,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
-import ru.lakeevda.application.boundary.adapter.consumer.OrderConsumer;
-import ru.lakeevda.domain.boundary.model.order.OrderRequest;
-import ru.lakeevda.domain.boundary.usecase.OrderUseCase;
+import ru.lakeevda.application.port.in.consumer.OrderConsumer;
+import ru.lakeevda.application.dto.OrderParamRequest;
+import ru.lakeevda.application.port.in.usecase.OrderUseCase;
 
 import java.util.concurrent.CompletionStage;
 
 @ApplicationScoped
-public class RabbitMqOrderConsumer implements OrderConsumer<OrderRequest> {
+public class RabbitMqOrderConsumer implements OrderConsumer<OrderParamRequest> {
 
     @Inject
     ObjectMapper objectMapper;
@@ -27,7 +27,7 @@ public class RabbitMqOrderConsumer implements OrderConsumer<OrderRequest> {
     public CompletionStage<Void> consume(Message<byte[]> message) {
         try {
             Log.infof("Обработка сообщения: {}", message);
-            var order = objectMapper.readValue(message.getPayload(), OrderRequest.class);
+            var order = objectMapper.readValue(message.getPayload(), OrderParamRequest.class);
             handle(order);
             Log.infof("Сообщение успешно обработано: {}", order);
             return message.ack();
@@ -38,7 +38,7 @@ public class RabbitMqOrderConsumer implements OrderConsumer<OrderRequest> {
     }
 
     @Override
-    public void handle(OrderRequest request) {
-        orderUseCase.create(request, Boolean.FALSE);
+    public void handle(OrderParamRequest paramIn) {
+        orderUseCase.create(paramIn, Boolean.FALSE);
     }
 }

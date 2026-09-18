@@ -6,8 +6,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import ru.lakeevda.application.boundary.adapter.producer.OrderProducer;
-import ru.lakeevda.domain.boundary.model.order.OrderResponse;
+import ru.lakeevda.application.dto.OrderParamResponse;
+import ru.lakeevda.application.port.out.producer.OrderProducer;
 
 @ApplicationScoped
 public class RabbitMqOrderProducer implements OrderProducer {
@@ -20,16 +20,16 @@ public class RabbitMqOrderProducer implements OrderProducer {
     Emitter<String> emitter;
 
     @Override
-    public void publish(OrderResponse order) {
-        Log.infof("Отправка сообщения: %s", order);
-        String json = toJson(order);
+    public void publish(OrderParamResponse paramOut) {
+        Log.infof("Отправка сообщения: %s", paramOut);
+        String json = toJson(paramOut);
         emitter.send(json);
         Log.infof("Сообщение отправлено");
     }
 
-    private String toJson(OrderResponse order) {
+    private String toJson(OrderParamResponse paramOut) {
         try {
-            return objectMapper.writeValueAsString(order);
+            return objectMapper.writeValueAsString(paramOut);
         } catch (Exception e) {
             Log.error(e);
             throw new RuntimeException("Ошибка серриализации сообщения", e);
