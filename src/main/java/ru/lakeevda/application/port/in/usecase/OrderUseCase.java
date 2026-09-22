@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface OrderUseCase {
     List<OrderParamResponse> getAll();
+
     OrderParamResponse getById(Long id);
+
     OrderParamResponse create(OrderParamRequest param, Boolean publish);
+
     void delete(Long id);
 }

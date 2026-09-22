@@ -7,6 +7,3 @@ CREATE TABLE IF NOT EXISTS quarkus_app.orders
     name   text                  NOT NULL,
     status varchar               NOT NULL
 );
-
-ALTER TABLE IF EXISTS quarkus_app.orders
-    OWNER to quarkus;

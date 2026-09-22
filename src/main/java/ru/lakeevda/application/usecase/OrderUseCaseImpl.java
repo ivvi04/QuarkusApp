@@ -2,9 +2,10 @@ package ru.lakeevda.application.usecase;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import ru.lakeevda.application.mapper.OrderUseCaseMapper;
+import jakarta.persistence.EntityNotFoundException;
 import ru.lakeevda.application.dto.OrderParamRequest;
 import ru.lakeevda.application.dto.OrderParamResponse;
+import ru.lakeevda.application.mapper.OrderUseCaseMapper;
 import ru.lakeevda.application.port.in.usecase.OrderUseCase;
 import ru.lakeevda.application.port.out.producer.OrderProducer;
 import ru.lakeevda.application.port.out.repository.OrderRepository;
@@ -30,7 +31,7 @@ public class OrderUseCaseImpl implements OrderUseCase {
     public OrderParamResponse getById(Long id) {
         return repository.findById(id)
                 .map(OrderUseCaseMapper::fromDomain)
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("Заказ не найден"));
     }
 
     @Override

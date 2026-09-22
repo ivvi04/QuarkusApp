@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum OrderStatus {
     CREATED("CREATED", "Создание"),
-    EDITED("EDITED","Редактирование"),
-    COMPLETED("COMPLETED","Выполнен");
+    EDITED("EDITED", "Редактирование"),
+    COMPLETED("COMPLETED", "Выполнен");
 
     private final String value;
     private final String description;
@@ -23,7 +23,7 @@ public enum OrderStatus {
         return Arrays.stream(OrderStatus.values())
                 .filter(candidate -> candidate.value.equals(text))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("Статус с таким названием не существует"));
     }
 
     public String getValue() {

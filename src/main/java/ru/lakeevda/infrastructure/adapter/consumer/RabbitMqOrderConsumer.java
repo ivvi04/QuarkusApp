@@ -7,8 +7,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
-import ru.lakeevda.application.port.in.consumer.OrderConsumer;
 import ru.lakeevda.application.dto.OrderParamRequest;
+import ru.lakeevda.application.port.in.consumer.OrderConsumer;
 import ru.lakeevda.application.port.in.usecase.OrderUseCase;
 
 import java.util.concurrent.CompletionStage;
