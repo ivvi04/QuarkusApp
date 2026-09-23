@@ -16,7 +16,7 @@ public class RabbitMqOrderProducer implements OrderProducer {
     ObjectMapper objectMapper;
 
     @Inject
-    @Channel("order-events-out")
+    @Channel("order-events-created")
     Emitter<String> emitter;
 
     @Override

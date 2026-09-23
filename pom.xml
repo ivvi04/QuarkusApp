@@ -15,6 +15,7 @@
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.39.3</quarkus.platform.version>
+        <skipUTs>false</skipUTs>
         <skipITs>false</skipITs>
         <surefire-plugin.version>3.5.6</surefire-plugin.version>
         <testcontainers.version>2.0.5</testcontainers.version>
@@ -135,6 +136,7 @@
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
                     </systemPropertyVariables>
+                    <skipTests>${skipUTs}</skipTests>
                 </configuration>
             </plugin>
             <plugin>
@@ -158,6 +160,7 @@
                         <quarkus.test.profile>integration-test</quarkus.test.profile>
                         <quarkus.test.integration-test-profile>integration-test</quarkus.test.integration-test-profile>
                     </systemPropertyVariables>
+                    <skipTests>${skipITs}</skipTests>
                 </configuration>
             </plugin>
         </plugins>

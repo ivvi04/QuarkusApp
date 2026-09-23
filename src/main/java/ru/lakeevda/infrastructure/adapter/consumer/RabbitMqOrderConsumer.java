@@ -22,18 +22,18 @@ public class RabbitMqOrderConsumer implements OrderConsumer<OrderParamRequest> {
     @Inject
     OrderUseCase orderUseCase;
 
-    @Incoming("order-events-in")
+    @Incoming("order-events-create")
     @Blocking
     public CompletionStage<Void> consume(Message<byte[]> message) {
         try {
-            Log.infof("Обработка сообщения: {}", message);
             var order = objectMapper.readValue(message.getPayload(), OrderParamRequest.class);
+            Log.infof("Обработка заказа: %s", order);
             handle(order);
-            Log.infof("Сообщение успешно обработано: {}", order);
+            Log.info("Заказ успешно обработан");
             return message.ack();
         } catch (Exception e) {
-            Log.error(e);
-            throw new RuntimeException("Ошибка обработки полученного заказа", e);
+            Log.errorf(e, "Ошибка валидации или десериализации сообщения");
+            return message.nack(e);
         }
     }
 
