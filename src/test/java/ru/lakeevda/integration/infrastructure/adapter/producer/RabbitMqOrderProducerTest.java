@@ -22,7 +22,7 @@ import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 @QuarkusTest
 public class RabbitMqOrderProducerTest {
 
-    private static final String QUEUE = "order-events-out";
+    private static final String QUEUE = "order-events-created";
     private static final String EXCHANGE = "orders-exchange";
     private static final String ROUTING_KEY = "order.created";
 

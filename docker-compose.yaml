@@ -45,9 +45,16 @@ services:
 
   quarkus-app:
     build:
-      dockerfile: src/main/docker/Dockerfile.jvm
-    image: quarkusapp:latest
-    container_name: quarkus-app
+      # Для JVM образа
+      #      dockerfile: src/main/docker/Dockerfile.jvm
+      #    image: quarkusapp:latest
+      #    container_name: quarkus-app
+      #
+      # Для Native образа
+      dockerfile: src/main/docker/Dockerfile.native
+    image: quarkusapp-native:latest
+    container_name: quarkus-app-native
+    #
     restart: always
     ports:
       - 8080:8080
