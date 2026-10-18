@@ -1,4 +1,4 @@
-package ru.lakeevda.infrastructure.persistence.repository;
+package ru.lakeevda.infrastructure.adapter.repository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import ru.lakeevda.application.port.out.repository.OrderRepository;
 import ru.lakeevda.domain.model.order.Order;
 import ru.lakeevda.infrastructure.persistence.mapper.OrderRepositoryMapper;
+import ru.lakeevda.infrastructure.persistence.repository.OrderJpaRepository;
 
 import java.util.List;
 import java.util.Optional;

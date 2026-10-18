@@ -10,9 +10,9 @@ import ru.lakeevda.domain.model.order.Order;
 import ru.lakeevda.domain.model.order.OrderId;
 import ru.lakeevda.domain.model.order.OrderName;
 import ru.lakeevda.domain.model.order.OrderStatus;
+import ru.lakeevda.infrastructure.adapter.repository.OrderRepositoryImpl;
 import ru.lakeevda.infrastructure.persistence.entity.OrderEntity;
 import ru.lakeevda.infrastructure.persistence.repository.OrderJpaRepository;
-import ru.lakeevda.infrastructure.persistence.repository.OrderRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
